@@ -1,0 +1,32 @@
+-------------------------------------------------------------------------------
+Test set: com.testcases.TestCases
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec <<< FAILURE!
+com.testcases.TestCases.testAspectRatioDtoToEntity()  Time elapsed: 0.001 sec  <<< FAILURE!
+java.lang.ExceptionInInitializerError
+	at com.testcases.TestCases.testAspectRatioDtoToEntity(TestCases.java:23)
+Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: Cannot find implementation for com.mtvi.endpointprofile.service.mapper.AspectRatioMapper
+	at org.mapstruct.factory.Mappers.getMapper(Mappers.java:79)
+	at com.mtvi.endpointprofile.service.mapper.AspectRatioMapper.<clinit>(AspectRatioMapper.java:13)
+	... 19 more
+Caused by: java.lang.ClassNotFoundException: Cannot find implementation for com.mtvi.endpointprofile.service.mapper.AspectRatioMapper
+	at org.mapstruct.factory.Mappers.getMapper(Mappers.java:93)
+	at org.mapstruct.factory.Mappers.getMapper(Mappers.java:76)
+	... 20 more
+
+com.testcases.TestCases.testAspectRatioEntityToDto()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NoClassDefFoundError: Could not initialize class com.mtvi.endpointprofile.service.mapper.AspectRatioMapper
+	at com.testcases.TestCases.testAspectRatioEntityToDto(TestCases.java:37)
+
+com.testcases.TestCases.testCaptionRequirementsDtotoEntity()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.ExceptionInInitializerError
+	at com.testcases.TestCases.testCaptionRequirementsDtotoEntity(TestCases.java:50)
+Caused by: java.lang.RuntimeException: java.lang.ClassNotFoundException: Cannot find implementation for com.mtvi.endpointprofile.service.mapper.CaptionRequirementsMapper
+	at org.mapstruct.factory.Mappers.getMapper(Mappers.java:79)
+	at com.mtvi.endpointprofile.service.mapper.CaptionRequirementsMapper.<clinit>(CaptionRequirementsMapper.java:13)
+	... 19 more
+Caused by: java.lang.ClassNotFoundException: Cannot find implementation for com.mtvi.endpointprofile.service.mapper.CaptionRequirementsMapper
+	at org.mapstruct.factory.Mappers.getMapper(Mappers.java:93)
+	at org.mapstruct.factory.Mappers.getMapper(Mappers.java:76)
+	... 20 more
+
