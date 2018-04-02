@@ -2,8 +2,6 @@ package com.testcases;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import com.mtvi.endpointprofile.domain.AspectRatio;
@@ -12,19 +10,32 @@ import com.mtvi.endpointprofile.domain.Channel;
 import com.mtvi.endpointprofile.domain.Codec;
 import com.mtvi.endpointprofile.domain.ContentDescriptor;
 import com.mtvi.endpointprofile.domain.ContentLevel;
+import com.mtvi.endpointprofile.domain.DeliveryContextMaterials;
+import com.mtvi.endpointprofile.domain.DeliveryMethod;
+import com.mtvi.endpointprofile.domain.Dimension;
+import com.mtvi.endpointprofile.domain.EncodingFormat;
+import com.mtvi.endpointprofile.domain.Material;
+import com.mtvi.endpointprofile.domain.PackageStructure;
 import com.mtvi.endpointprofile.service.dto.AspectRatioDTO;
 import com.mtvi.endpointprofile.service.dto.CaptionRequirementsDTO;
 import com.mtvi.endpointprofile.service.dto.ChannelDTO;
 import com.mtvi.endpointprofile.service.dto.CodecDTO;
 import com.mtvi.endpointprofile.service.dto.ContentDescriptorDTO;
 import com.mtvi.endpointprofile.service.dto.ContentLevelDTO;
-import com.mtvi.endpointprofile.service.dto.DeliveryContextDTO;
+import com.mtvi.endpointprofile.service.dto.DeliveryContextMaterialsDTO;
+import com.mtvi.endpointprofile.service.dto.DeliveryMethodDTO;
+import com.mtvi.endpointprofile.service.dto.DimensionDTO;
+import com.mtvi.endpointprofile.service.dto.EncodingFormatDTO;
 import com.mtvi.endpointprofile.service.mapper.AspectRatioMapper;
 import com.mtvi.endpointprofile.service.mapper.CaptionRequirementsMapper;
 import com.mtvi.endpointprofile.service.mapper.ChannelMapper;
 import com.mtvi.endpointprofile.service.mapper.CodecMapper;
 import com.mtvi.endpointprofile.service.mapper.ContentDescriptorMapper;
 import com.mtvi.endpointprofile.service.mapper.ContentLevelMapper;
+import com.mtvi.endpointprofile.service.mapper.DeliveryContextMaterialsMapper;
+import com.mtvi.endpointprofile.service.mapper.DeliveryMethodMapper;
+import com.mtvi.endpointprofile.service.mapper.DimensionMapper;
+import com.mtvi.endpointprofile.service.mapper.EncodingFormatMapper;
 
 public class TestCases {
 
@@ -190,11 +201,148 @@ public class TestCases {
 
 	}
 
-	/*@Test
-	public void toDeliveryContextDtotoEntity() {
-		DeliveryContextDTO deliveryContextDto = new DeliveryContextDTO();
-		Channel channel = new Channel();channel.setName("Channel Name");
+	@Test
+	public void toDeliveryContextMaterialDto() {
+		DeliveryContextMaterials deliveryContextMaterials = new DeliveryContextMaterials();
+		deliveryContextMaterials.setId(12l);
+		deliveryContextMaterials.setName("TV");
+		deliveryContextMaterials.setDestinationTemplate("Template");
+		PackageStructure packageStructure = new PackageStructure();
+		packageStructure.setName("PS");
 
-		deliveryContextDto.setChannel(Collections.singleton(channel));
-	}*/
+		deliveryContextMaterials.setPackageStructure(packageStructure);
+
+		Material mat = new Material();
+		mat.setName("Image download");
+		deliveryContextMaterials.setMaterial(mat);
+		DeliveryMethod context=new DeliveryMethod();
+		context.setName("PAckage");
+		deliveryContextMaterials.setDeliveryMethod(context);
+		
+		
+		DeliveryContextMaterialsDTO deliveryCMaterial=DeliveryContextMaterialsMapper.INSTANCE.toDeliveryContextMaterialsDTO(deliveryContextMaterials);
+		
+		assertThat(deliveryCMaterial.getId()).isEqualTo(12l);
+		assertThat(deliveryCMaterial.getName()).isEqualTo("TV");
+		assertThat(deliveryCMaterial.getDestinationTemplate()).isEqualTo("Template");
+		assertThat(deliveryCMaterial.getPackageStructure()).isEqualTo(packageStructure);
+		assertThat(deliveryCMaterial.getMaterial()).isEqualTo(mat);
+		assertThat(deliveryCMaterial.getDeliveryMethod()).isEqualTo(context);
+		
+		
+
+	}
+
+	@Test
+	public void fromDeliveryContextMaterialDto() {
+		DeliveryContextMaterialsDTO deliveryContextMaterials = new DeliveryContextMaterialsDTO();
+		deliveryContextMaterials.setId(12l);
+		deliveryContextMaterials.setName("TV");
+		deliveryContextMaterials.setDestinationTemplate("Template");
+		PackageStructure packageStructure = new PackageStructure();
+		packageStructure.setName("PS");
+
+		deliveryContextMaterials.setPackageStructure(packageStructure);
+
+		Material mat = new Material();
+		mat.setName("Image download");
+		deliveryContextMaterials.setMaterial(mat);
+		DeliveryMethod context=new DeliveryMethod();
+		context.setName("PAckage");
+		deliveryContextMaterials.setDeliveryMethod(context);
+		
+		
+		DeliveryContextMaterials deliveryCMaterial=DeliveryContextMaterialsMapper.INSTANCE.fromDeliveryContextMaterialsDTO(deliveryContextMaterials);
+		
+		assertThat(deliveryCMaterial.getId()).isEqualTo(12l);
+		assertThat(deliveryCMaterial.getName()).isEqualTo("TV");
+		assertThat(deliveryCMaterial.getDestinationTemplate()).isEqualTo("Template");
+		assertThat(deliveryCMaterial.getPackageStructure()).isEqualTo(packageStructure);
+		assertThat(deliveryCMaterial.getMaterial()).isEqualTo(mat);
+		assertThat(deliveryCMaterial.getDeliveryMethod()).isEqualTo(context);
+	}
+
+	@Test
+	public void fromDeliveryMethodDto() {
+		DeliveryMethodDTO deliveryMethodDto = new DeliveryMethodDTO();
+		deliveryMethodDto.setId(12l);
+		deliveryMethodDto.setName("Pack");
+
+		DeliveryMethod deliveryMethod = DeliveryMethodMapper.INSTANCE.fromDeliveryMethodDto(deliveryMethodDto);
+		assertThat(deliveryMethod.getId()).isEqualTo(12l);
+		assertThat(deliveryMethod.getName()).isEqualTo("Pack");
+
+	}
+
+	@Test
+	public void toDeliveryMethodDto() {
+		DeliveryMethod deliveryMethod = new DeliveryMethod();
+		deliveryMethod.setId(12l);
+		deliveryMethod.setName("Pack");
+
+		DeliveryMethodDTO deliveryMethodDto = DeliveryMethodMapper.INSTANCE.toDeliveryMethodDto(deliveryMethod);
+		assertThat(deliveryMethodDto.getId()).isEqualTo(12l);
+		assertThat(deliveryMethodDto.getName()).isEqualTo("Pack");
+
+	}
+
+	@Test
+	public void fromDimensionDto() {
+		DimensionDTO dimensionDto = new DimensionDTO();
+		dimensionDto.setId(123l);
+		dimensionDto.setName("TV");
+		dimensionDto.setWidth(15);
+		dimensionDto.setHeight(15);
+
+		Dimension dimension = DimensionMapper.INSTANCE.fromDimensionDto(dimensionDto);
+		assertThat(dimension.getId()).isEqualTo(12l);
+		assertThat(dimension.getName()).isEqualTo("TV");
+		assertThat(dimension.getWidth()).isEqualTo(15);
+		assertThat(dimension.getHeight()).isEqualTo(15);
+
+	}
+
+	@Test
+	public void toDimensionDto() {
+
+		Dimension dimension = new Dimension();
+		dimension.setId(123l);
+		dimension.setName("TV");
+		dimension.setWidth(15);
+		dimension.setHeight(15);
+
+		DimensionDTO dimensionDto = DimensionMapper.INSTANCE.toDimensionDto(dimension);
+		assertThat(dimensionDto.getId()).isEqualTo(12l);
+		assertThat(dimensionDto.getName()).isEqualTo("TV");
+		assertThat(dimensionDto.getWidth()).isEqualTo(15);
+		assertThat(dimensionDto.getHeight()).isEqualTo(15);
+
+	}
+
+	@Test
+	public void fromEncodingFormatDto() {
+		EncodingFormatDTO encodingFormatDTO = new EncodingFormatDTO();
+
+		encodingFormatDTO.setId(1l);
+		encodingFormatDTO.setName("XSFA1204");
+
+		EncodingFormat encodingFormat = EncodingFormatMapper.INSTANCE.fromEncodingFormatDto(encodingFormatDTO);
+
+		assertThat(encodingFormat.getId()).isEqualTo(12l);
+		assertThat(encodingFormat.getName()).isEqualTo("XSFA1204");
+	}
+
+	@Test
+	public void toEncodingFormatDto() {
+		EncodingFormat encodingFormat = new EncodingFormat();
+
+		encodingFormat.setId(1l);
+		encodingFormat.setName("XSFA1204");
+
+		EncodingFormatDTO encodingFormatDto = EncodingFormatMapper.INSTANCE.toEncodingFormatDto(encodingFormat);
+
+		assertThat(encodingFormatDto.getId()).isEqualTo(12l);
+		assertThat(encodingFormatDto.getName()).isEqualTo("XSFA1204");
+	}
+
 }
